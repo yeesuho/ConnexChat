@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:context_chat/ui/style.dart';
 import 'package:context_chat/ui/view/home_page.dart';
+import 'package:context_chat/ui/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,7 +38,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   Success() {
     Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
+        pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
         // transitionDuration: Duration(milliseconds: 100),
         transitionsBuilder: (context, animation, secondaryAnimation, child) => Transform.translate(offset: Offset(0, 500 - 500 * animation.value), child: Opacity(opacity: animation.value, child: child,),)
     ), (route) => route.isFirst);

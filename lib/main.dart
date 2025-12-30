@@ -1,4 +1,5 @@
 import 'package:context_chat/ui/style.dart';
+import 'package:context_chat/ui/view/login.dart';
 import 'package:flutter/material.dart';
 
 import 'ui/view/home_page.dart';
@@ -8,8 +9,9 @@ void main() {
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashPage(),
+        // home: SplashPage(),
         // home: HomePage(),
+        home: LoginPage(),
         theme: Style.theme,
       )
   );
