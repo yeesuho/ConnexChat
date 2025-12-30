@@ -17,6 +17,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     vsync: this,
     duration: Duration(milliseconds: 3500),
   );
+
+  late AnimationController bounceController = AnimationController(vsync: this, duration: Duration(milliseconds: 600));
   // late CurvedAnimation animation = CurvedAnimation(
   //   parent: ac,
   //   curve: Curves.easeOutCirc,
@@ -51,11 +53,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     // Future.delayed(Duration(seconds: 1), () {
     //   if(mounted) setState(() => showFullSlider = true);
     // });
+    Future.delayed(Duration(milliseconds: 2000), () {
+      if(mounted) bounceController.repeat(reverse: true);
+    });
   }
 
   @override
   void dispose() {
     ac.dispose();
+    bounceController.dispose();
     super.dispose();
   }
 
@@ -216,15 +222,21 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                             ),),
                             Transform.scale(
                               scale: sliderHandleAnimation.value,
-                              child: Opacity(opacity: sliderHandleAnimation.value, child: Dismissible(
-                                  key: UniqueKey(),
-                                direction: DismissDirection.up,
-                                onDismissed: (direction) => Success(),
-                                onUpdate: (details) => progress.value = details.progress,
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: Colors.white,
-                                  child: Text("NEXT", style: TextStyle(color: Style.theme.colorScheme.primary, fontFamily: "LexendDeca", fontWeight: FontWeight.bold, fontSize: 20),),
+                              child: Opacity(opacity: sliderHandleAnimation.value, child: AnimatedBuilder(
+                                animation: bounceController,
+                                builder: (context, child) {
+                                  return Transform.translate(offset: Offset(0, -10 * bounceController.value), child: child,);
+                                },
+                                child: Dismissible(
+                                    key: UniqueKey(),
+                                  direction: DismissDirection.up,
+                                  onDismissed: (direction) => Success(),
+                                  onUpdate: (details) => progress.value = details.progress,
+                                  child: CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor: Colors.white,
+                                    child: Text("NEXT", style: TextStyle(color: Style.theme.colorScheme.primary, fontFamily: "LexendDeca", fontWeight: FontWeight.bold, fontSize: 20),),
+                                  ),
                                 ),
                               ),),
                             )
