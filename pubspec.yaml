@@ -93,6 +93,9 @@ flutter:
     - family: LexendDeca
       fonts:
         - asset: assets/fonts/LexendDeca-VariableFont_wght.ttf
+    - family: LexendDeca-Bold
+      fonts:
+        - asset: assets/fonts/static/LexendDeca-Bold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
