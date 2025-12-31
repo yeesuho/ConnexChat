@@ -40,7 +40,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Success() {
     Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
-        // transitionDuration: Duration(milliseconds: 100),
+        transitionDuration: Duration(milliseconds: 100),
         transitionsBuilder: (context, animation, secondaryAnimation, child) => Transform.translate(offset: Offset(0, 500 - 500 * animation.value), child: Opacity(opacity: animation.value, child: child,),)
     ), (route) => route.isFirst);
   }
@@ -67,7 +67,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
         await bounceController.reverse().orCancel;
 
-        await Future.delayed(Duration(milliseconds: 1000));
+        await Future.delayed(Duration(milliseconds: 1300));
       } on TickerCanceled {
         break;
       }
@@ -149,7 +149,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children:
-                                    _buildAnimatedText("Context Chat"),
+                                    _buildAnimatedText("Connex Chat"),
 
                                   )
 

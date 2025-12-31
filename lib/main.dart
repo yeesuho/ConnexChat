@@ -9,9 +9,9 @@ void main() {
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashPage(),
+        // home: SplashPage(),
         // home: HomePage(),
-        // home: LoginPage(),
+        home: LoginPage(),
         theme: Style.theme,
       )
   );
