@@ -1,4 +1,4 @@
-# context_chat
+# connex_chat
 
 A new Flutter project.
 

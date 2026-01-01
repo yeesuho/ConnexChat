@@ -13,17 +13,30 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Style.theme.colorScheme.primary,
-      body: Column(
+      body: Stack(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height/4,
-            width: double.infinity,
-            child: Column(
-              children: [
-
-                Text("안녕하세요!"),
-                Text("Connex Chat과 함께 오늘도 활기찬 하루되세요"),
-              ],
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: EdgeInsets.only(left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/simbol/simbol-white.png"),
+                        SizedBox(width: 10,),
+                        Text("Connex Chat", style: TextStyle(color: Colors.white, fontSize: 24, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold),)
+                      ],
+                    ),
+                  ),
+                  Text("안녕하세요!", style: TextStyle(color: Colors.white, fontSize: 40, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold),),
+                  Text("Connex Chat과 함께 오늘도 활기찬 하루되세요", style: TextStyle(fontSize: 16, fontFamily: "LexendDeca", color: Colors.white, fontWeight: FontWeight.bold),),
+                ],
+              ),
             ),
           ),
           Align(
