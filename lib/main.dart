@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:connex_chat/controller/app.dart';
 import 'package:connex_chat/data/model/employee.dart';
 import 'package:connex_chat/ui/style.dart';
+import 'package:connex_chat/ui/view/chat_list_page.dart';
 import 'package:connex_chat/ui/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,19 +56,19 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                 controller: App.tab,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  HomePage(), Container(), Container(), Container()
+                  HomePage(), ChatListPage(), Container()
                 ]
             ),
-            Positioned(left: 0, right: 0, bottom: -600 + 80,child: Transform.scale(
-
-              scaleX: 2.4,
-              child: Container(
-                width: 600,
-                height: 600,
-                color: Colors.white,
-              ),
-            ),
-            ),
+            // Positioned(left: 0, right: 0, bottom: -600 + 80,child: Transform.scale(
+            //
+            //   scaleX: 2.4,
+            //   child: Container(
+            //     width: 600,
+            //     height: 600,
+            //     color: Colors.white,
+            //   ),
+            // ),
+            // ),
             Align(alignment: Alignment.bottomCenter, child: Padding(padding: EdgeInsetsGeometry.fromLTRB(16,0,16,20),
               child: Container(
                 height: 70,
@@ -102,9 +103,9 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                           onTap: (value) => App.currentIndex.value = value,
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           tabs: [
-                            Tab(text: "Home",icon: Container(padding: EdgeInsets.all(6), width: 40, height: 40, child: SvgPicture.asset(App.currentIndex.value == 0 ? "assets/icons/home-fill.svg":"assets/icons/home-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 24 ))  ),
-                            Tab(text: "Chat",icon: Container(padding: EdgeInsets.all(6), width: 40, height: 40, child: SvgPicture.asset(App.currentIndex.value == 1 ? "assets/icons/chat-dots-fill.svg" : "assets/icons/chat-dots-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 20 ))  ),
-                            Tab(text: "Profile",icon: Container(padding: EdgeInsets.all(6), width: 40, height: 40, child: SvgPicture.asset(App.currentIndex.value == 2 ? "assets/icons/person-fill.svg" : "assets/icons/person-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 24 ))  ),
+                            Tab(text: "Home",icon: Container(padding: EdgeInsets.only(top: 6), width: 34, height: 34, child: SvgPicture.asset(App.currentIndex.value == 0 ? "assets/icons/home-fill.svg":"assets/icons/home-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 24 ))  ),
+                            Tab(text: "Chat",icon: Container(padding: EdgeInsets.only(top: 6), width: 34, height: 34, child: SvgPicture.asset(App.currentIndex.value == 1 ? "assets/icons/chat-dots-fill.svg" : "assets/icons/chat-dots-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 20 ))  ),
+                            Tab(text: "Profile",icon: Container(padding: EdgeInsets.only(top: 6), width: 34, height: 34, child: SvgPicture.asset(App.currentIndex.value == 2 ? "assets/icons/person-fill.svg" : "assets/icons/person-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 24 ))  ),
                           ]
                       );
                     }

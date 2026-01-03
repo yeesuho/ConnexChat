@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     child: ListView(
-                      padding: EdgeInsets.only(top: 20, bottom: 100),
+                      padding: EdgeInsets.only(top: 20, bottom: MediaQuery.of(context).size.height/10),
                       children: [
                         for(var i = 0; i < employee.length; i += 1)
                           Container(
