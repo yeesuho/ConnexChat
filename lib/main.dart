@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connex_chat/controller/app.dart';
 import 'package:connex_chat/data/model/employee.dart';
+import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
 import 'package:connex_chat/ui/view/chat_list_page.dart';
 import 'package:connex_chat/ui/view/login.dart';
@@ -16,6 +17,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
   App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employee>((e) => Employee.fromJson(e)).toList();
+  App.unreadChat = jsonDecode(await rootBundle.loadString("assets/data/읽지_않은_대화_data.json")).map<UnreadChat>((e) => UnreadChat.fromJson(e)).toList();
 
   runApp(
       MaterialApp(
@@ -77,7 +79,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(35),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.1),
+                      color: Style.theme.colorScheme.primary.withValues(alpha: 0.3),
                       blurRadius: 10,
                       spreadRadius: 2,
                       offset: Offset(0, 5)
