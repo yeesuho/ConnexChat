@@ -14,7 +14,7 @@ import 'ui/view/splash_page.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json"))['employee'].map<Employee>((e) => Employee.fromJson(e)).toList();
+  App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employee>((e) => Employee.fromJson(e)).toList();
 
   runApp(
       MaterialApp(
@@ -64,28 +64,52 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               child: Container(
                 width: 600,
                 height: 600,
-                decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(offset: const Offset(0, -10), color: Colors.black.withValues(alpha: .04), blurRadius: 10, spreadRadius: 10)],
-
-                  color: Colors.white,),
+                color: Colors.white,
               ),
             ),
             ),
-            Align(alignment: Alignment.bottomCenter, child: Padding(padding: EdgeInsetsGeometry.fromLTRB(16,0,16,10),
-              child: TabBar(
-                  controller: App.tab,
-                  // indicator: BoxDecoration(color: Style.theme.colorScheme.primary, shape: BoxShape.circle),
-                  indicatorColor: Style.theme.colorScheme.primary,
-                  // indicatorColor: Style.theme.colorScheme.primary,
-                  indicatorSize: TabBarIndicatorSize.label,
-
-                  onTap: (value) => App.currentIndex.value = value,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  tabs: [
-                    Tab(icon: Container(padding: EdgeInsets.all(6), width: 56, height: 56, child: SvgPicture.asset(App.currentIndex.value == 0 ? "assets/icons/home-fill.svg":"assets/icons/home-outline.svg", colorFilter: ColorFilter.mode(App.currentIndex.value == 0 ? Style.theme.colorScheme.primary : Colors.grey, BlendMode.srcIn, ),width: 24, height: 24 ))  ),
-                    Tab(icon: Container(padding: EdgeInsets.all(6), width: 56, height: 56, child: SvgPicture.asset(App.currentIndex.value == 1 ? "assets/icons/chat-dots-fill.svg" : "assets/icons/chat-dots-outline.svg", colorFilter: ColorFilter.mode(App.currentIndex.value == 1 ? Style.theme.colorScheme.primary : Colors.grey, BlendMode.srcIn, ),width: 24, height: 24 ))  ),
-                    Tab(icon: Container(padding: EdgeInsets.all(6), width: 56, height: 56, child: SvgPicture.asset(App.currentIndex.value == 2 ? "assets/icons/person-fill.svg" : "assets/icons/person-outline.svg", colorFilter: ColorFilter.mode(App.currentIndex.value == 2 ? Style.theme.colorScheme.primary : Colors.grey, BlendMode.srcIn, ),width: 24, height: 24 ))  ),
+            Align(alignment: Alignment.bottomCenter, child: Padding(padding: EdgeInsetsGeometry.fromLTRB(16,0,16,20),
+              child: Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(35),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                      offset: Offset(0, 5)
+                    )
                   ]
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(35),
+                  child: ValueListenableBuilder(
+                    valueListenable: App.currentIndex,
+                    builder: (context, value, child) {
+                      return TabBar(
+                          controller: App.tab,
+                          indicator: BoxDecoration(),
+                          // indicator: BoxDecoration(color: Style.theme.colorScheme.primary, shape: BoxShape.circle),
+                          // indicatorColor: Style.theme.colorScheme.primary,
+                          // indicatorColor: Style.theme.colorScheme.primary,
+                          // indicatorSize: TabBarIndicatorSize.label,
+                  
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Style.theme.colorScheme.primary),
+                          unselectedLabelStyle: TextStyle(color: Style.theme.colorScheme.primary),
+                      
+                          onTap: (value) => App.currentIndex.value = value,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          tabs: [
+                            Tab(text: "Home",icon: Container(padding: EdgeInsets.all(6), width: 40, height: 40, child: SvgPicture.asset(App.currentIndex.value == 0 ? "assets/icons/home-fill.svg":"assets/icons/home-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 24 ))  ),
+                            Tab(text: "Chat",icon: Container(padding: EdgeInsets.all(6), width: 40, height: 40, child: SvgPicture.asset(App.currentIndex.value == 1 ? "assets/icons/chat-dots-fill.svg" : "assets/icons/chat-dots-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 20 ))  ),
+                            Tab(text: "Profile",icon: Container(padding: EdgeInsets.all(6), width: 40, height: 40, child: SvgPicture.asset(App.currentIndex.value == 2 ? "assets/icons/person-fill.svg" : "assets/icons/person-outline.svg", color: Style.theme.colorScheme.primary, width: 24, height: 24 ))  ),
+                          ]
+                      );
+                    }
+                  ),
+                ),
               ),),)
           ],
         ),

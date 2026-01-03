@@ -61,17 +61,35 @@ class _HomePageState extends State<HomePage> {
                         fontFamily: "LexendDeca-Bold"),
                     ),
                   ),
-                  Column(
-                    children: [
-                      for(var i = 1; i < employee.length; i += 1)
-                        Row(
-                          children: [
-                            Image.asset("assets/img/${employee[i].profile}.jpg"),
-                            Text(employee[i].name),
-                          ],
-                        ),
-                    ],
-                  )
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.only(top: 20, bottom: 100),
+                      children: [
+                        for(var i = 0; i < employee.length; i += 1)
+                          Container(
+                            padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
+                            child: Row(
+                              children: [
+                                 Stack(children: [
+                                   ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.asset("assets/img/${employee[i].profile}.jpg", width: 60, height: 60, fit: BoxFit.cover,)),
+                                   Positioned.fill(child: Container(
+                                     decoration: BoxDecoration(
+                                       borderRadius: BorderRadius.circular(10),
+                                       gradient: LinearGradient(begin: Alignment(.5, 0), end: Alignment.centerRight, colors: [Colors.white.withValues(alpha: .05), Colors.white])
+                                     ),
+                                   ))
+                                 ]),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Text(employee[i].name, style: TextStyle(fontFamily: "LexendDeca", fontSize: 16, fontWeight: FontWeight.w500),),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+
                 ],
               ),
             ),
