@@ -45,21 +45,26 @@ class _ChatListPageState extends State<ChatListPage> {
               ),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Text("사내 전체 공지"),
-                      Text("개발팀"),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Row(
+                      children: [
+                        Text("사내 전체 공지", style: TextStyle(fontSize: 18, color: Style.theme.colorScheme.primary, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold),),
+                        SizedBox(width: 10,),
+                        Text("개발팀", style: TextStyle(fontSize: 18, color: Colors.grey, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: ListView(
-
+                      padding: EdgeInsets.only(bottom: 10),
                       children: [
                         for(int i = 0; i < unreadChat.length; i++)
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                               child: Container(
                                 height: 80,
+                                width: double.infinity,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
@@ -73,12 +78,17 @@ class _ChatListPageState extends State<ChatListPage> {
                                   ]
                                 ),
                                 child: Row(
+
                                   children: [
-                                    Column(
-                                      children: [
-                                        Text(unreadChat[i].room_name,style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
-                                        Text(unreadChat[i].last_chat, style: TextStyle(fontSize: 16, fontFamily: "LexendDeca"),)
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(18, 10, 10, 10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(unreadChat[i].room_name,style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
+                                          Text(unreadChat[i].last_chat, style: TextStyle(fontSize: 16, fontFamily: "LexendDeca"),)
+                                        ],
+                                      ),
                                     ),
                                     Text("오후 10:21", style: TextStyle(fontSize: 16, fontFamily: "LexendDeca"))
                                   ],
