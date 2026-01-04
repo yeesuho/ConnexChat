@@ -1,5 +1,6 @@
 import 'package:connex_chat/controller/app.dart';
 import 'package:connex_chat/data/model/employee.dart';
+import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Employee> employee= App.employee.toList();
+  List<UnreadChat> unreadChat = App.unreadChat.toList();
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +57,60 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(padding: EdgeInsets.only(left: 30, top: 40),
-                    child: Text("사원 목록", style: TextStyle(fontSize: 24,
+                  Padding(
+                    padding: EdgeInsets.only(left: 26, top: 40),
+                    child: Text("읽지 않은 대화가 ${unreadChat.length}개 있어요!", style: TextStyle(
+                      fontSize: 20, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold
+                    ),),
+                  ),
+                  SizedBox(height: 140, child: ListView(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      for(var i = 0; i < unreadChat.length; i++)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                spreadRadius: 3,
+                                blurRadius: 3,
+                                offset: Offset(0, 2)
+                              ),
+                            ]
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(12, 12, 10, 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 40),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[2].profile}.jpg", width: 40, height: 40,)),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[1].profile}.jpg", width: 40, height: 40,)),
+                                    ),
+                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[0].profile}.jpg", width: 40, height: 40, fit: BoxFit.cover,)),
+                                  ],
+                                ),
+                                Text(unreadChat[i].room_name),
+                                Text(unreadChat[i].last_chat)
+                              ],
+                            ),
+                          ),
+
+                        )
+
+                    ],
+                  )),
+                  Padding(padding: EdgeInsets.only(left: 26),
+                    child: Text("사원 목록", style: TextStyle(fontSize: 20,
                         fontWeight: FontWeight.bold,
                         fontFamily: "LexendDeca-Bold"),
                     ),
