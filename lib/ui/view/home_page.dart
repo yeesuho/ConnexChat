@@ -69,15 +69,17 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       for(var i = 0; i < unreadChat.length; i++)
                         Container(
+                          margin: EdgeInsets.only(left: 14),
+                          width: 170,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.2),
-                                spreadRadius: 3,
-                                blurRadius: 3,
-                                offset: Offset(0, 2)
+                                color: Colors.black.withValues(alpha: 0.1),
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                                offset: Offset(0, 4)
                               ),
                             ]
                           ),
@@ -99,8 +101,10 @@ class _HomePageState extends State<HomePage> {
                                     ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[0].profile}.jpg", width: 40, height: 40, fit: BoxFit.cover,)),
                                   ],
                                 ),
-                                Text(unreadChat[i].room_name),
-                                Text(unreadChat[i].last_chat)
+                                SizedBox(height: 3,),
+                                Text(unreadChat[i].room_name, style: TextStyle(fontSize: 18, color: Style.theme.colorScheme.primary, fontWeight: FontWeight.bold, fontFamily: "LexendDeca-Bold"),),
+                                SizedBox(height: 5,),
+                                Text(unreadChat[i].last_chat, style: TextStyle(fontSize: 14, fontFamily: "LexendDeca"), overflow: TextOverflow.ellipsis, maxLines: 1,)
                               ],
                             ),
                           ),
@@ -109,6 +113,7 @@ class _HomePageState extends State<HomePage> {
 
                     ],
                   )),
+                  SizedBox(height: 20,),
                   Padding(padding: EdgeInsets.only(left: 26),
                     child: Text("사원 목록", style: TextStyle(fontSize: 20,
                         fontWeight: FontWeight.bold,
