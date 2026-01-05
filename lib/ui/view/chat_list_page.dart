@@ -31,7 +31,28 @@ class _ChatListPageState extends State<ChatListPage> {
 
                 Text("채팅방 목록", style: TextStyle(color: Colors.white, fontFamily: "LexendDeca-Bold", fontSize: 24, fontWeight: FontWeight.bold),),
                 GestureDetector(onTap: (){
-
+                  showDialog(context: context, barrierDismissible: true, builder: (context) {
+                    return Dialog(shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("채팅방 생성하기"),
+                                IconButton(onPressed: (){
+                                  Navigator.pop(context);
+                                }, icon: Icon(Icons.close))
+                              ],
+                            )
+                          ],
+                        ),
+                      ),);
+                  },);
                 } ,child: SvgPicture.asset("assets/icons/chat-plus-outline.svg", width: 30, height: 30, color: Colors.white,)),
 
               ],
