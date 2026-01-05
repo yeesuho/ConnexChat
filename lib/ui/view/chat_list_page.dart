@@ -31,27 +31,97 @@ class _ChatListPageState extends State<ChatListPage> {
 
                 Text("채팅방 목록", style: TextStyle(color: Colors.white, fontFamily: "LexendDeca-Bold", fontSize: 24, fontWeight: FontWeight.bold),),
                 GestureDetector(onTap: (){
+                  Set<int> selectedEmployee = {};
+                  
                   showDialog(context: context, barrierDismissible: true, builder: (context) {
-                    return Dialog(shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("채팅방 생성하기"),
-                                IconButton(onPressed: (){
-                                  Navigator.pop(context);
-                                }, icon: Icon(Icons.close))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),);
+                    return StatefulBuilder(
+                      builder: (context, setState) => Dialog(shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("채팅방 생성하기",style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold)),
+                                  IconButton(onPressed: (){
+                                    Navigator.pop(context);
+                                  }, icon: Icon(Icons.close))
+                                ],
+                              ),
+                              SizedBox(height: 20,),
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: "섹션 이름을 입력해주세요",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                  )
+                                ),
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: "채팅방 이름을 입력해주세요",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                  )
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              SizedBox(
+                                height: 60,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    for (var i = 0; i<employee.length; i++)
+
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 8),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              if(selectedEmployee.contains(i)) {
+                                                selectedEmployee.remove(i);
+                                              } else {
+                                                selectedEmployee.add(i);
+                                              }
+                                            },);
+                                          },
+                                          child: Opacity(
+                                            opacity: selectedEmployee.contains(i) ? 1.0 : 0.3,
+                                            child: Row(
+                                              children: [
+                                                ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset("assets/img/${employee[i].profile}.jpg", fit: BoxFit.cover, width: 40, height: 40,)),
+                                                SizedBox(width: 10,),
+                                                Text(employee[i].name, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "LexendDeca", fontSize: 16),),
+                                                SizedBox(width: 12,),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              OutlinedButton(
+                                  onPressed: (){},
+                                  style: OutlinedButton.styleFrom(
+                                    minimumSize: Size(200, 60),
+                                    backgroundColor: Style.theme.colorScheme.primary,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)
+                                    )
+                                  ),
+                                  child: Text("생성하기", style: TextStyle(fontSize: 16, fontFamily: "LexendDeca", fontWeight: FontWeight.bold),)
+                              )
+                            ],
+                          ),
+                        ),),
+                    );
                   },);
                 } ,child: SvgPicture.asset("assets/icons/chat-plus-outline.svg", width: 30, height: 30, color: Colors.white,)),
 
@@ -112,7 +182,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                               ],
                                             ),
                                             ListTile(
-                                              title: Text("채팅방 정보 수정"),
+                                              title: Text("채팅방 정보 수정", style: TextStyle(fontFamily: "LexendDeca", fontWeight: FontWeight.w500),),
                                               onTap: () {
                                                 Navigator.pop(context);
                                                 Set<int> selectedEmployee = {};
@@ -209,7 +279,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                               },
                                             ),
                                             ListTile(
-                                              title: Text("나가기"),
+                                              title: Text("나가기", style: TextStyle(fontFamily: "LexendDeca", fontWeight: FontWeight.w500)),
                                               onTap: () {
                                                 Navigator.pop(context);
                                                 print("나가기 클릭");
