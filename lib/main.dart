@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connex_chat/controller/app.dart';
+import 'package:connex_chat/data/model/conversation.dart';
 import 'package:connex_chat/data/model/employee.dart';
 import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
@@ -18,6 +19,7 @@ void main() async{
 
   App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employee>((e) => Employee.fromJson(e)).toList();
   App.unreadChat = jsonDecode(await rootBundle.loadString("assets/data/읽지_않은_대화_data.json")).map<UnreadChat>((e) => UnreadChat.fromJson(e)).toList();
+  App.conversation = jsonDecode(await rootBundle.loadString("assets/data/채팅방_대화_내용_data.json")).map<Conversation>((e) => Conversation.fromJson(e)).toList();
 
   runApp(
       MaterialApp(
