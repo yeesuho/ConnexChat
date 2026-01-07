@@ -1,6 +1,8 @@
+import 'package:connex_chat/controller/auth.dart';
 import 'package:connex_chat/main.dart';
 import 'package:connex_chat/ui/style.dart';
 import 'package:flutter/material.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,11 +12,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final key = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Style.theme.colorScheme.primary,
         body: Stack(
           children: [
@@ -67,65 +74,82 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             children: [
-                              Column(
-                                children: [
-                                  TextField(
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: "이메일을 입력해주세요.",
-                                      labelStyle: TextStyle(color: Colors.grey[700], fontSize: 16),
+                              Form(
+                                key: key,
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      validator: (value) {
+                                        if(value == null) return '알 수 없는 에러입니다.';
+                                        if(value.isEmpty) return '필수 입력값 입니다.';
+                                        return null;
+                                      },
+                                      controller: email,
 
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: BorderSide(
-                                          color: Colors.grey,
-                                          width: 2.0
+
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: "이메일을 입력해주세요.",
+                                        labelStyle: TextStyle(color: Colors.grey[700], fontSize: 16),
+
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: Colors.grey,
+                                            width: 2.0
+                                          )
+                                        ),
+
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: Style.theme.colorScheme.primary,
+                                            width: 2.0
+                                          )
                                         )
                                       ),
-
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: BorderSide(
-                                          color: Style.theme.colorScheme.primary,
-                                          width: 2.0
-                                        )
-                                      )
                                     ),
-                                  ),
-                                  SizedBox(height: 20,),
-                                  TextField(
-                                    obscureText: true,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: "비밀번호를 입력해주세요.",
-                                      labelStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
+                                    SizedBox(height: 20,),
+                                    TextFormField(
+                                      validator: (value) {
+                                        if(value == null) return '알 수 없는 에러입니다.';
+                                        if(value.isEmpty) return '필수 입력값 입니다.';
+                                        return null;
+                                      },
+                                      controller: password,
+                                      obscureText: true,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: "비밀번호를 입력해주세요.",
+                                        labelStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
 
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: BorderSide(
-                                          color: Colors.grey,
-                                          width: 2
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: Colors.grey,
+                                            width: 2
+                                          )
+                                        ),
+
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: Style.theme.colorScheme.primary,
+                                            width: 2
+                                          )
                                         )
                                       ),
-
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: BorderSide(
-                                          color: Style.theme.colorScheme.primary,
-                                          width: 2
-                                        )
-                                      )
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(height: 220,),
                               Column(
@@ -134,8 +158,23 @@ class _LoginPageState extends State<LoginPage> {
                                     width: MediaQuery.of(context).size.width,
                                     height: 60,
                                     child: OutlinedButton(
-                                      onPressed: (){
-                                        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => MyApp(),), (route) => false,);
+                                      onPressed: () async{
+                                        if(key.currentState!.validate()) {
+                                          final result = await AuthController.login(email.text, password.text);
+                                          if(result == true) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('환영합니다.')),
+                                            );
+                                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => MyApp(),), (route) => false,);
+                                          } else {
+                                            email.clear();
+                                            password.clear();
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('아이디 또는 비밀번호를 확인해주세요.')),
+                                            );
+                                          }
+                                        }
+
                                       },
                                       style: OutlinedButton.styleFrom(
                                       side: BorderSide(

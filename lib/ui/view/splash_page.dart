@@ -20,8 +20,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     duration: Duration(milliseconds: 3500),
   );
 
+  late AnimationController logoController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1300),
+  );
+
   // next 버튼 bounce 애니메이션 controller
-  late AnimationController bounceController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+  late AnimationController bounceController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
   // late CurvedAnimation animation = CurvedAnimation(
   //   parent: ac,
   //   curve: Curves.easeOutCirc,
@@ -48,10 +53,12 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    logoRotationAnimation = Tween<double>(begin: 0.5, end: 0.0).animate(CurvedAnimation(parent: ac, curve: Interval(0.0, 0.3, curve: Curves.easeOutBack),));
+    logoRotationAnimation = Tween<double>(begin: 0.5, end: 0.0).animate(CurvedAnimation(parent: logoController, curve: Interval(0.0, 1, curve: Curves.easeOutBack),));
     sliderHandleAnimation = CurvedAnimation(parent: ac, curve: Interval(0.6, 0.8, curve: Curves.easeOut));
     sliderBGAnimation = CurvedAnimation(parent: ac, curve: Interval(0.9, 1.0, curve: Curves.easeOut));
-    Future.delayed(Duration(milliseconds: 1000), () => ac.forward());
+    Future.delayed(Duration(milliseconds: 500), () => logoController.forward(),);
+    Future.delayed(Duration(milliseconds: 1500), () => ac.forward());
+
     // Future.delayed(Duration(seconds: 1), () {
     //   if(mounted) setState(() => showFullSlider = true);
     // });
@@ -77,6 +84,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   void dispose() {
     ac.dispose();
+    logoController.dispose();
     bounceController.dispose();
     super.dispose();
   }
@@ -134,32 +142,44 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
 
-                        AnimatedBuilder(
-                          animation: ac, builder: (context, child) => Transform.translate(
-                            offset: Offset(0, 0),
-                            child: Opacity(
-                              opacity: ac.value,
-                              child: Padding(
+                        Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  RotationTransition(turns: logoRotationAnimation, child: Image.asset("assets/simbol/simbol-white.png", width: 50, height: 50,),),
+                                  AnimatedBuilder(animation: logoController,
+                                    builder: (context, child) =>
+                                        Transform.translate(
+                                          offset: Offset(0, 0),
+                                          child: Opacity(opacity: logoController.value,
+                                              child: RotationTransition(
+                                                turns: logoRotationAnimation,
+                                                child: Image.asset(
+                                                  "assets/simbol/simbol-white.png",
+                                                  width: 50,
+                                                  height: 50,),)),),),
                                   SizedBox(width: 10,),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children:
-                                    _buildAnimatedText("Connex Chat"),
+                                  AnimatedBuilder(
+                                    animation: ac,
+                                    builder: (context, child) => Transform.translate(
+                                        offset: Offset(0, 0),
+                                        child: Opacity(
+                                          opacity: ac.value,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children:
+                                            _buildAnimatedText("Connex Chat"),
 
+                                          ),
+                                        ),
+                                    ),
                                   )
 
                                 ],
                               ),
                                                       ),
-                            ),
-                          ),
 
-                        ),
+
                         AnimatedBuilder(animation: subTextAnimation, builder: (context, child) => Transform.translate(
                           offset: Offset(0, 20 * (1 - subTextAnimation.value)),
                           child: Opacity(opacity:subTextAnimation.value, child: Text(
@@ -241,7 +261,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                               child: Opacity(opacity: sliderHandleAnimation.value, child: AnimatedBuilder(
                                 animation: bounceController,
                                 builder: (context, child) {
-                                  return Transform.translate(offset: Offset(0, -10 * bounceController.value), child: child,);
+                                  return Transform.translate(offset: Offset(0, -7 * bounceController.value), child: child,);
                                 },
                                 child: Dismissible(
                                     key: UniqueKey(),
