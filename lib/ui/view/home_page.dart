@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Employee>? employee;
+  List<Employee>? employee = DataController.employee;
   List<UnreadChat> unreadChat = App.unreadChat.toList();
 
   @override
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if(employee!.length < 3) {
       return Scaffold(
-        body: Container(
+        body: Center(
           child: CircularProgressIndicator(),
         ),
       );
