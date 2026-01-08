@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 class AuthController {
   static Future<bool> login(email, password) async {
     final response = await post(
-      Uri.parse('http://10.0.2.2:3000/auth/login'),
+      Uri.parse('http://${DataController.baseUrl}/auth/login'),
       headers: DataController.headers,
       body: jsonEncode({"email": email, "password" : password}),
     );
