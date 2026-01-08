@@ -15,7 +15,7 @@ class ChatListPage extends StatefulWidget {
 
 class _ChatListPageState extends State<ChatListPage> {
   List<UnreadChat> unreadChat = App.unreadChat.toList();
-  List<Employee> employee = App.employee.toList();
+  List<Employees> employee = App.employee.toList();
 
 
 

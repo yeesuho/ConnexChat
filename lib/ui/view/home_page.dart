@@ -1,4 +1,6 @@
 import 'package:connex_chat/controller/app.dart';
+import 'package:connex_chat/controller/data.dart';
+import 'package:connex_chat/controller/employee.dart';
 import 'package:connex_chat/data/model/employee.dart';
 import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
@@ -13,8 +15,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Employee> employee= App.employee.toList();
+  List<Employee> employee = DataController.employee;
   List<UnreadChat> unreadChat = App.unreadChat.toList();
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  void init() async {
+    await EmployeeController.getEmployees();
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +107,13 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(left: 40),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[2].profile}.jpg", width: 40, height: 40,)),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("${employee[2].profileImage}", width: 40, height: 40,)),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[1].profile}.jpg", width: 40, height: 40,)),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("${employee[1].profileImage}", width: 40, height: 40,)),
                                     ),
-                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("assets/img/${employee[0].profile}.jpg", width: 40, height: 40, fit: BoxFit.cover,)),
+                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("${employee[0].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
                                   ],
                                 ),
                                 SizedBox(height: 3,),
@@ -130,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               children: [
                                  Stack(children: [
-                                   ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.asset("assets/img/${employee[i].profile}.jpg", width: 60, height: 60, fit: BoxFit.cover,)),
+                                   ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.asset("${employee[i].profileImage}", width: 60, height: 60, fit: BoxFit.cover,)),
                                    Positioned.fill(child: Container(
                                      decoration: BoxDecoration(
                                        borderRadius: BorderRadius.circular(10),

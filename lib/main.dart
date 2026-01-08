@@ -17,7 +17,7 @@ import 'ui/view/splash_page.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employee>((e) => Employee.fromJson(e)).toList();
+  App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employees>((e) => Employees.fromJson(e)).toList();
   App.unreadChat = jsonDecode(await rootBundle.loadString("assets/data/읽지_않은_대화_data.json")).map<UnreadChat>((e) => UnreadChat.fromJson(e)).toList();
   App.conversation = jsonDecode(await rootBundle.loadString("assets/data/채팅방_대화_내용_data.json")).map<Conversation>((e) => Conversation.fromJson(e)).toList();
 

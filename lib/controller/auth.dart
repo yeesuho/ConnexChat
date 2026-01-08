@@ -15,7 +15,7 @@ class AuthController {
     log(jsonDecode(response.body).toString());
 
     if(response.statusCode == 200) {
-      final token = jsonDecode(response.body)['access_token'];
+      final token = jsonDecode(response.body)['data']['token'];
       DataController.headers['Authorization'] = 'Bearer $token';
     }
 

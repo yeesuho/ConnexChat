@@ -8,7 +8,7 @@ class App {
 
   static ValueNotifier<int> currentIndex = ValueNotifier(0);
 
-  static List<Employee> employee = [];
+  static List<Employees> employee = [];
   static List<UnreadChat> unreadChat = [];
   static List<Conversation> conversation = [];
 }
