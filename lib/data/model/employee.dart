@@ -34,7 +34,7 @@ class Employees {
 
 
 class Employee {
-  String id;
+  int id;
   String name;
   String department;
   String position;

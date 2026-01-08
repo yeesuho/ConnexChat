@@ -17,13 +17,8 @@ class EmployeeController {
 
 
     final decode = jsonDecode(response.body) as List;
+    
 
-    // final List list = (decode is List) ? decode : (decode['data'] as List);
-
-    // DataController.employee = jsonDecode(
-    //   response.body,
-    // )[0];
-
-    DataController.employee = decode.map((e) => Employee.fromJson(e),).toList();
+    DataController.employee = decode.map((e) => Employee.fromJson(e as Map<String, dynamic>),).toList();
   }
 }

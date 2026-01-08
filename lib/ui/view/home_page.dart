@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Employee> employee = DataController.employee;
+  List<Employee>? employee;
   List<UnreadChat> unreadChat = App.unreadChat.toList();
 
   @override
@@ -27,12 +27,20 @@ class _HomePageState extends State<HomePage> {
   void init() async {
     await EmployeeController.getEmployees();
     setState(() {
-
+      employee = DataController.employee;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if(employee!.length < 3) {
+      return Scaffold(
+        body: Container(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Style.theme.colorScheme.primary,
       body: Stack(
@@ -107,13 +115,13 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(left: 40),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("${employee[2].profileImage}", width: 40, height: 40,)),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${employee![2].profileImage}", width: 40, height: 40,)),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("${employee[1].profileImage}", width: 40, height: 40,)),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${employee![1].profileImage}", width: 40, height: 40,)),
                                     ),
-                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.asset("${employee[0].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
+                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${employee![0].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
                                   ],
                                 ),
                                 SizedBox(height: 3,),
@@ -139,13 +147,13 @@ class _HomePageState extends State<HomePage> {
                     child: ListView(
                       padding: EdgeInsets.only(top: 20, bottom: MediaQuery.of(context).size.height/10),
                       children: [
-                        for(var i = 0; i < employee.length; i += 1)
+                        for(var i = 0; i < employee!.length; i += 1)
                           Container(
                             padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
                             child: Row(
                               children: [
                                  Stack(children: [
-                                   ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.asset("${employee[i].profileImage}", width: 60, height: 60, fit: BoxFit.cover,)),
+                                   ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.network("${employee![i].profileImage}", width: 60, height: 60, fit: BoxFit.cover,)),
                                    Positioned.fill(child: Container(
                                      decoration: BoxDecoration(
                                        borderRadius: BorderRadius.circular(10),
@@ -155,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                                  ]),
                                 Padding(
                                   padding: EdgeInsets.only(left: 20),
-                                  child: Text(employee[i].name, style: TextStyle(fontFamily: "LexendDeca", fontSize: 16, fontWeight: FontWeight.w500),),
+                                  child: Text(employee![i].name, style: TextStyle(fontFamily: "LexendDeca", fontSize: 16, fontWeight: FontWeight.w500),),
                                 ),
                               ],
                             ),
