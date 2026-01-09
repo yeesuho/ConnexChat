@@ -12,4 +12,5 @@ class DataController {
   static List<UnreadChat> unreadChat = [];
   static List<Conversation> conversation = [];
   static Me? me;
+
 }

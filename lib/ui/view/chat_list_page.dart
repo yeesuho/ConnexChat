@@ -16,7 +16,8 @@ class ChatListPage extends StatefulWidget {
 }
 
 class _ChatListPageState extends State<ChatListPage> {
-  List<UnreadChat> unreadChat = App.unreadChat.toList();
+  // List<UnreadChat> unreadChat = App.unreadChat.toList();
+  List<UnreadChat> unreadChat = DataController.unreadChat;
   List<Employee> employee = DataController.employee;
   // List<Me> Me = DataController.me;
 
@@ -207,7 +208,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(unreadChat[i].room_name,style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
+                                                Text(unreadChat[i].roomName,style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
                                                 IconButton(onPressed: () {
                                                   Navigator.pop(context);
                                                 }, icon: Icon(Icons.close))
@@ -379,8 +380,8 @@ class _ChatListPageState extends State<ChatListPage> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(unreadChat[i].room_name,style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
-                                              Text(unreadChat[i].last_chat, style: TextStyle(fontSize: 16, fontFamily: "LexendDeca"), overflow: TextOverflow.ellipsis, maxLines: 1,)
+                                              Text(unreadChat[i].roomName,style: TextStyle(fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
+                                              Text(unreadChat[i].lastMessage, style: TextStyle(fontSize: 16, fontFamily: "LexendDeca"), overflow: TextOverflow.ellipsis, maxLines: 1,)
                                             ],
                                           ),
                                         ),

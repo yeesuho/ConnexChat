@@ -1,4 +1,5 @@
 import 'package:connex_chat/controller/app.dart';
+import 'package:connex_chat/controller/chat.dart';
 import 'package:connex_chat/controller/data.dart';
 import 'package:connex_chat/controller/employee.dart';
 import 'package:connex_chat/data/model/employee.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Employee>? employee = DataController.employee;
-  List<UnreadChat> unreadChat = App.unreadChat.toList();
+  List<UnreadChat>? unreadChat = DataController.unreadChat;
   Me? me = DataController.me;
   static bool isLoading = true;
 
@@ -29,9 +30,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> init() async {
     await EmployeeController.getEmployees();
     await EmployeeController.getMe();
+    await ChatController.getUnreadChats();
     setState(() {
       employee = DataController.employee;
       me = DataController.me;
+      unreadChat = DataController.unreadChat;
       isLoading = false;
     });
   }
@@ -78,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 26, top: 40),
-                    child: Text("읽지 않은 대화가 ${unreadChat.length}개 있어요!", style: TextStyle(
+                    child: Text("읽지 않은 대화가 ${unreadChat!.length}개 있어요!", style: TextStyle(
                       fontSize: 20, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold
                     ),),
                   ),
@@ -86,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      for(var i = 0; i < unreadChat.length; i++)
+                      for(var i = 0; i < unreadChat!.length; i++)
                         Container(
                           margin: EdgeInsets.only(left: 14),
                           width: 170,
@@ -111,19 +114,19 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(left: 40),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${employee![2].profileImage}", width: 40, height: 40,)),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[0].profileImage}", width: 40, height: 40,)),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${employee![1].profileImage}", width: 40, height: 40,)),
+                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[1].profileImage}", width: 40, height: 40,)),
                                     ),
-                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${employee![0].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
+                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[2].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
                                   ],
                                 ),
                                 SizedBox(height: 3,),
-                                Text(unreadChat[i].room_name, style: TextStyle(fontSize: 18, color: Style.theme.colorScheme.primary, fontWeight: FontWeight.bold, fontFamily: "LexendDeca-Bold"),),
+                                Text(unreadChat![i].roomName, style: TextStyle(fontSize: 18, color: Style.theme.colorScheme.primary, fontWeight: FontWeight.bold, fontFamily: "LexendDeca-Bold"),),
                                 SizedBox(height: 5,),
-                                Text(unreadChat[i].last_chat, style: TextStyle(fontSize: 14, fontFamily: "LexendDeca"), overflow: TextOverflow.ellipsis, maxLines: 1,)
+                                Text(unreadChat![i].lastMessage, style: TextStyle(fontSize: 14, fontFamily: "LexendDeca"), overflow: TextOverflow.ellipsis, maxLines: 1,)
                               ],
                             ),
                           ),
