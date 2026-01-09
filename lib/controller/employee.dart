@@ -16,9 +16,26 @@ class EmployeeController {
     log(jsonDecode(response.body).toString());
 
 
-    final decode = jsonDecode(response.body) as List;
+    final decode = jsonDecode(response.body) as Map<String, dynamic>;
+    final list = decode['data'] as List;
     
 
-    DataController.employee = decode.map((e) => Employee.fromJson(e as Map<String, dynamic>),).toList();
+    DataController.employee = list.map((e) => Employee.fromJson(e as Map<String, dynamic>),).toList();
+  }
+
+
+  static Future getMe() async {
+    final response = await get(
+      Uri.parse('http://${DataController.baseUrl}/users/me'),
+      headers: DataController.headers,
+    );
+
+    log("AUTH HEADER: ${DataController.headers['Authorization']}");
+    final decode = jsonDecode(response.body) as Map<String, dynamic>;
+    final data = decode['data'] as Map<String, dynamic>;
+
+    DataController.me = Me.fromJson(data);
+
+
   }
 }

@@ -17,6 +17,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Employee>? employee = DataController.employee;
   List<UnreadChat> unreadChat = App.unreadChat.toList();
+  Me? me = DataController.me;
+  static bool isLoading = true;
 
   @override
   void initState() {
@@ -24,16 +26,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void init() async {
+  Future<void> init() async {
     await EmployeeController.getEmployees();
+    await EmployeeController.getMe();
     setState(() {
       employee = DataController.employee;
+      me = DataController.me;
+      isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if(employee!.length < 3) {
+    if(isLoading) {
       return Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -49,22 +54,13 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 54),
             child: Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  width: 40,
-                  height: 40,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: SvgPicture.asset("assets/icons/person-fill.svg",
-                      width: 30, height: 30, color: Style.theme.colorScheme.primary,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.network("${me!.profileImage}", width: 40, height: 40, fit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(width: 10,),
-                Text("Competitor1 님", style: TextStyle(color: Colors.white, fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
+                Text(me!.name, style: TextStyle(color: Colors.white, fontFamily: "LexendDeca-Bold", fontSize: 20, fontWeight: FontWeight.bold),),
               ],
             ),
           ),
@@ -149,7 +145,8 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         for(var i = 0; i < employee!.length; i += 1)
                           Container(
-                            padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
+
+                            padding: EdgeInsets.fromLTRB(30, 0, 30, 20),
                             child: Row(
                               children: [
                                  Stack(children: [

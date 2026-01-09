@@ -1,4 +1,6 @@
 import 'package:connex_chat/controller/app.dart';
+import 'package:connex_chat/controller/data.dart';
+import 'package:connex_chat/controller/employee.dart';
 import 'package:connex_chat/data/model/employee.dart';
 import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
@@ -15,8 +17,8 @@ class ChatListPage extends StatefulWidget {
 
 class _ChatListPageState extends State<ChatListPage> {
   List<UnreadChat> unreadChat = App.unreadChat.toList();
-  List<Employees> employee = App.employee.toList();
-
+  List<Employee> employee = DataController.employee;
+  // List<Me> Me = DataController.me;
 
 
   @override
@@ -122,7 +124,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                               opacity: selectedEmployee.contains(i) ? 1.0 : 0.3,
                                               child: Row(
                                                 children: [
-                                                  ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset("assets/img/${employee[i].profile}.jpg", fit: BoxFit.cover, width: 40, height: 40,)),
+                                                  ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.network("${employee[i].profileImage}", fit: BoxFit.cover, width: 40, height: 40,)),
                                                   SizedBox(width: 10,),
                                                   Text(employee[i].name, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "LexendDeca", fontSize: 16),),
                                                   SizedBox(width: 12,),
@@ -305,7 +307,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                                                             opacity: selectedEmployee.contains(i) ? 1.0 : 0.3,
                                                                             child: Row(
                                                                               children: [
-                                                                                ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset("assets/img/${employee[i].profile}.jpg", fit: BoxFit.cover, width: 40, height: 40,)),
+                                                                                ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.network("${employee[i].profileImage}", fit: BoxFit.cover, width: 40, height: 40,)),
                                                                                 SizedBox(width: 10,),
                                                                                 Text(employee[i].name, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "LexendDeca", fontSize: 16),),
                                                                                 SizedBox(width: 12,),

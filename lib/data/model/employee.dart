@@ -58,3 +58,29 @@ class Employee {
     );
   }
 }
+
+class Me {
+  int id;
+  String email;
+  String name;
+  String profileImage;
+  String createdAt;
+
+  Me(
+      this.id,
+      this.email,
+      this.name,
+      this.profileImage,
+      this.createdAt,
+      );
+
+  factory Me.fromJson(json) {
+    return Me(
+        json['id'],
+        json['email'],
+        json['name'],
+        json['profileImage'],
+        json['createdAt'],
+    );
+  }
+}
