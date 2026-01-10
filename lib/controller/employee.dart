@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:connex_chat/controller/data.dart';
 import 'package:connex_chat/data/model/employee.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmployeeController {
   static Future getEmployees() async{
@@ -30,7 +31,6 @@ class EmployeeController {
       headers: DataController.headers,
     );
 
-    log("AUTH HEADER: ${DataController.headers['Authorization']}");
     final decode = jsonDecode(response.body) as Map<String, dynamic>;
     final data = decode['data'] as Map<String, dynamic>;
 

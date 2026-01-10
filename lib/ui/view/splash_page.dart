@@ -5,10 +5,10 @@ import 'package:connex_chat/ui/view/home_page.dart';
 import 'package:connex_chat/ui/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
-
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
@@ -42,10 +42,14 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   bool showFullSlider = false;
 
-  Success() {
+  Future<void> Success() async{
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setBool('splash', false);
+
     Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
-        transitionDuration: Duration(milliseconds: 100),
+        transitionDuration: Duration(milliseconds: 1500),
         transitionsBuilder: (context, animation, secondaryAnimation, child) => Transform.translate(offset: Offset(0, 500 - 500 * animation.value), child: Opacity(opacity: animation.value, child: child,),)
     ), (route) => route.isFirst);
   }
@@ -65,6 +69,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     Future.delayed(Duration(milliseconds: 5500), () {
       if(mounted) _startBounceLoop();
     });
+
+
   }
 
   Future<void> _startBounceLoop() async {
@@ -86,6 +92,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     ac.dispose();
     logoController.dispose();
     bounceController.dispose();
+
     super.dispose();
   }
 
@@ -266,7 +273,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                                 child: Dismissible(
                                     key: UniqueKey(),
                                   direction: DismissDirection.up,
-                                  onDismissed: (direction) => Success(),
+                                  onDismissed: (direction) async => await Success(),
                                   onUpdate: (details) => progress.value = details.progress,
                                   child: CircleAvatar(
                                     radius: 40,

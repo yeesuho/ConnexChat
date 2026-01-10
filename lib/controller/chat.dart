@@ -25,4 +25,12 @@ class ChatController {
     DataController.totalCount = unreadChatCount;
   }
 
+  static Future getChatRooms() async {
+    final response = await get(
+      Uri.parse("http://${DataController.baseUrl}/chatrooms?includeFavorites=true"),
+      headers: DataController.headers,
+    );
+
+
+  }
 }

@@ -7,6 +7,7 @@ import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   List<Employee>? employee = DataController.employee;
   List<UnreadChat>? unreadChat = DataController.unreadChat;
   Me? me = DataController.me;
-  static bool isLoading = true;
+  bool isLoading = true;
 
 
   @override
@@ -32,6 +33,8 @@ class _HomePageState extends State<HomePage> {
     await EmployeeController.getEmployees();
     await EmployeeController.getMe();
     await ChatController.getUnreadChats();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('login', true);
     setState(() {
       employee = DataController.employee;
       me = DataController.me;
