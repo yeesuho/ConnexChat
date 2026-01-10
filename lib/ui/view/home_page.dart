@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   Me? me = DataController.me;
   static bool isLoading = true;
 
+
   @override
   void initState() {
     init();
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     if(isLoading) {
       return Scaffold(
         body: Center(
@@ -81,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 26, top: 40),
-                    child: Text("읽지 않은 대화가 ${unreadChat!.length}개 있어요!", style: TextStyle(
+                    child: Text("읽지 않은 대화가 ${DataController.totalCount}개 있어요!", style: TextStyle(
                       fontSize: 20, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.bold
                     ),),
                   ),
@@ -90,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       for(var i = 0; i < unreadChat!.length; i++)
+
                         Container(
                           margin: EdgeInsets.only(left: 14),
                           width: 170,
@@ -112,15 +115,19 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Stack(
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 40),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[0].profileImage}", width: 40, height: 40,)),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[1].profileImage}", width: 40, height: 40,)),
-                                    ),
-                                    ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[2].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
+                                    if(unreadChat![i].participants.length > 2)
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 40),
+                                        child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[2].profileImage}", width: 40, height: 40,)),
+                                      ),
+                                    if(unreadChat![i].participants.length > 1)
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[1].profileImage}", width: 40, height: 40,)),
+                                      ),
+                                    if(unreadChat![i].participants.length > 0)
+                                      ClipRRect(borderRadius: BorderRadius.circular(100) , child: Image.network("${unreadChat![i].participants[0].profileImage}", width: 40, height: 40, fit: BoxFit.cover,)),
+
                                   ],
                                 ),
                                 SizedBox(height: 3,),

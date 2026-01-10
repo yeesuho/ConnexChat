@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:connex_chat/controller/data.dart';
 import 'package:connex_chat/data/model/unread_chat.dart';
@@ -11,10 +12,17 @@ class ChatController {
       headers: DataController.headers,
     );
 
-    final decode = jsonDecode(response.body)['data']['unreadChats'];
-    final data = UnreadChat.fromJson(decode);
+    log(jsonDecode(response.body)['data']['totalCount'].toString());
 
-    DataController.unreadChat = data as List<UnreadChat>;
+    final decode = jsonDecode(response.body);
 
+    final unreadChatCount = decode['data']['totalCount'];
+
+    final list = (decode['data']?['unreadChats'] as List? ?? []);
+    final data = list.map((e) => UnreadChat.fromJson(e as Map<String, dynamic>)).toList();
+
+    DataController.unreadChat = data;
+    DataController.totalCount = unreadChatCount;
   }
+
 }

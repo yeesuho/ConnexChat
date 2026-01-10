@@ -32,12 +32,14 @@ class UnreadChat {
       );
 
   factory UnreadChat.fromJson(json) {
+    final participantsJson = (json['participants'] as List? ?? []);
+
     return UnreadChat(
       json['chatroomId'],
       json['roomName'],
       json['lastMessage'],
       json['unreadCount'],
-      json['participants'],
+      participantsJson.map((e) => Participant.fromJson(e as Map<String, dynamic>)).toList(),
     );
   }
 }
