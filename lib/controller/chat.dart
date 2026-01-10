@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:connex_chat/controller/data.dart';
+import 'package:connex_chat/data/model/chatrooms.dart';
 import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:http/http.dart';
 
@@ -32,5 +33,15 @@ class ChatController {
     );
 
 
+
+    final decode = jsonDecode(response.body);
+
+    final chatroomList = decode['data']['chatrooms'] as List;
+    final data = chatroomList.map((e)=> ChatroomList.fromJson(e as Map<String, dynamic>)).toList();
+
+    log(chatroomList.toString());
+
+
+    DataController.chatroomList = data;
   }
 }

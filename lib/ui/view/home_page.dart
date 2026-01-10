@@ -2,6 +2,7 @@ import 'package:connex_chat/controller/app.dart';
 import 'package:connex_chat/controller/chat.dart';
 import 'package:connex_chat/controller/data.dart';
 import 'package:connex_chat/controller/employee.dart';
+import 'package:connex_chat/data/model/chatrooms.dart';
 import 'package:connex_chat/data/model/employee.dart';
 import 'package:connex_chat/data/model/unread_chat.dart';
 import 'package:connex_chat/ui/style.dart';
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Employee>? employee = DataController.employee;
   List<UnreadChat>? unreadChat = DataController.unreadChat;
+  List<ChatroomList>? chatroomList = DataController.chatroomList;
   Me? me = DataController.me;
   bool isLoading = true;
 
@@ -33,12 +35,14 @@ class _HomePageState extends State<HomePage> {
     await EmployeeController.getEmployees();
     await EmployeeController.getMe();
     await ChatController.getUnreadChats();
+    await ChatController.getChatRooms();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('login', true);
     setState(() {
       employee = DataController.employee;
       me = DataController.me;
       unreadChat = DataController.unreadChat;
+      chatroomList = DataController.chatroomList;
       isLoading = false;
     });
   }

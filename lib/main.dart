@@ -13,12 +13,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'controller/chat.dart';
+import 'controller/employee.dart';
 import 'ui/view/home_page.dart';
 import 'ui/view/splash_page.dart';
 
 late SharedPreferences prefs;
 
+
 Future<void> main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
 
   App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employees>((e) => Employees.fromJson(e)).toList();
@@ -46,6 +50,8 @@ Future<void> main() async{
       firstPage = MyApp();
     }
   }
+
+
 
   runApp(
       MaterialApp(
