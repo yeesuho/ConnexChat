@@ -56,10 +56,10 @@ Future<void> main() async{
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: firstPage,
+        // home: firstPage,
         // home: SplashPage(),
         // home: MyApp(),
-        // home: LoginPage(),
+        home: LoginPage(),
         theme: Style.theme,
       )
   );

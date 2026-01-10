@@ -81,79 +81,105 @@ class _LoginPageState extends State<LoginPage> {
                                   key: key,
                                   child: Column(
                                     children: [
-                                      TextFormField(
-                                        keyboardType: TextInputType.emailAddress,
-                                        validator: (value) {
-                                          if(value == null) return '알 수 없는 에러입니다.';
-                                          if(!value.contains("@")) return '이메일을 입력해주세요.';
-                                          if(value.contains(" ")) return '공백을 제외해주세요.';
-                                          if(value.isEmpty) return '필수 입력값 입니다.';
-                                          return null;
-                                        },
-                                        controller: email,
+                                      Stack(
+                                        children: [
+                                          TextFormField(
+                                            textAlignVertical: TextAlignVertical.bottom,
+                                            cursorHeight: 20,
+                                            keyboardType: TextInputType.emailAddress,
+                                            validator: (value) {
+                                              if(value == null) return '알 수 없는 에러입니다.';
+                                              if(!value.contains("@")) return '이메일을 입력해주세요.';
+                                              if(value.contains(" ")) return '공백을 제외해주세요.';
+                                              if(value.isEmpty) return '필수 입력값 입니다.';
+                                              return null;
+                                            },
+                                            controller: email,
 
 
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            labelText: "이메일을 입력해주세요.",
-                                            labelStyle: TextStyle(color: Colors.grey[700], fontSize: 16),
+                                            style: TextStyle(
+                                              // height: 3,
+                                              height: 3,
+                                              fontFamily: "LexendDeca",
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                // labelText: "이메일을 입력해주세요.",
+                                                labelStyle: TextStyle(color: Colors.grey[700], fontSize: 16),
+                                                contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
 
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(12),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey,
-                                                    width: 2.0
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.grey,
+                                                        width: 2.0
+                                                    )
+                                                ),
+
+                                                focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    borderSide: BorderSide(
+                                                        color: Style.theme.colorScheme.primary,
+                                                        width: 2.0
+                                                    )
                                                 )
                                             ),
-
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(12),
-                                                borderSide: BorderSide(
-                                                    color: Style.theme.colorScheme.primary,
-                                                    width: 2.0
-                                                )
-                                            )
-                                        ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 15, top: 10),
+                                            child: Text("이메일을 입력해주세요.", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontFamily: "LexendDeca", fontSize: 14),)
+                                          )
+                                        ],
                                       ),
                                       SizedBox(height: 20,),
-                                      TextFormField(
-                                        validator: (value) {
-                                          if(value == null) return '알 수 없는 에러입니다.';
-                                          if(value.length < 4) return '비밀번호는 4자 이상 입력해주세요.';
-                                          if(value.isEmpty) return '필수 입력값 입니다.';
-                                          return null;
-                                        },
-                                        controller: password,
-                                        obscureText: true,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold
-                                        ),
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            labelText: "비밀번호를 입력해주세요.",
-                                            labelStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
-
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(12),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey,
-                                                    width: 2
+                                      Stack(
+                                        children: [
+                                          TextFormField(
+                                            textAlignVertical: TextAlignVertical.bottom,
+                                            cursorHeight: 20,
+                                            validator: (value) {
+                                              if(value == null) return '알 수 없는 에러입니다.';
+                                              if(value.length < 4) return '비밀번호는 4자 이상 입력해주세요.';
+                                              if(value.isEmpty) return '필수 입력값 입니다.';
+                                              return null;
+                                            },
+                                            controller: password,
+                                            obscureText: true,
+                                            style: TextStyle(
+                                                height: 3,
+                                                color: Colors.black,
+                                                fontFamily: "LexendDeca",
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                // labelText: "비밀번호를 입력해주세요.",
+                                                labelStyle: TextStyle(color: Colors.grey[600], fontSize: 16),
+                                                contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.grey,
+                                                        width: 2
+                                                    )
+                                                ),
+                                          
+                                                focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    borderSide: BorderSide(
+                                                        color: Style.theme.colorScheme.primary,
+                                                        width: 2
+                                                    )
                                                 )
                                             ),
+                                          ),
+                                          Padding(
 
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(12),
-                                                borderSide: BorderSide(
-                                                    color: Style.theme.colorScheme.primary,
-                                                    width: 2
-                                                )
-                                            )
-                                        ),
+                                            padding: EdgeInsets.only(top: 10, left: 15),
+                                            child: Text("비밀번호를 입력해주세요.", style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "LexendDecda"),))
+                                        ],
                                       )
                                     ],
                                   ),

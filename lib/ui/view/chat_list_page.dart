@@ -75,46 +75,76 @@ class _ChatListPageState extends State<ChatListPage> with TickerProviderStateMix
                                   ],
                                 ),
                                 SizedBox(height: 20,),
-                                TextField(
+                                Stack(
+                                  children: [
+                                    TextField(
+                                      textAlignVertical: TextAlignVertical.bottom,
+                                      cursorHeight: 20,
 
-                                  decoration: InputDecoration(
-                                    labelText: "섹션 이름을 입력해주세요",
-
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                      borderSide: BorderSide(
-                                        color: Colors.grey,
-                                        width: 2
-                                      )
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Style.theme.colorScheme.primary,
-                                        width: 2
+                                      style: TextStyle(
+                                        height: 3,
+                                        fontFamily: "LexendDeca",
                                       ),
-                                      borderRadius: BorderRadius.circular(15)
+
+                                      decoration: InputDecoration(
+                                        // labelText: "섹션 이름을 입력해주세요",
+                                        contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                          borderSide: BorderSide(
+                                            color: Colors.grey,
+                                            width: 2
+                                          )
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Style.theme.colorScheme.primary,
+                                            width: 2
+                                          ),
+                                          borderRadius: BorderRadius.circular(15)
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10, left: 15),
+                                      child: Text("섹션 이름을 입력해주세요.", style: TextStyle(color: Colors.grey, fontFamily: "LexendDeca", fontWeight: FontWeight.bold, fontSize: 14),),
+                                    )
+                                  ],
                                 ),
                                 SizedBox(height: 20,),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    labelText: "채팅방 이름을 입력해주세요",
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.grey,
-                                        width: 2
+                                Stack(
+                                  children: [
+                                    TextField(
+                                      textAlignVertical: TextAlignVertical.bottom,
+                                      cursorHeight: 20,
+                                      style: TextStyle(
+                                        height: 3,
+                                        fontFamily: "LexendDeca",
                                       ),
-                                      borderRadius: BorderRadius.circular(15)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Style.theme.colorScheme.primary,
-                                        width: 2
+                                      decoration: InputDecoration(
+                                        // labelText: "채팅방 이름을 입력해주세요"
+                                        contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.grey,
+                                            width: 2
+                                          ),
+                                          borderRadius: BorderRadius.circular(15)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Style.theme.colorScheme.primary,
+                                            width: 2
+                                          ),
+                                          borderRadius: BorderRadius.circular(15)
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(15)
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 10, left: 15),
+                                      child: Text("채팅방 이름을 입력해주세요.", style: TextStyle(color: Colors.grey, fontFamily: "LexendDecaq", fontWeight: FontWeight.bold, fontSize: 14),),
+                                    )
+                                  ],
                                 ),
                                 SizedBox(height: 20,),
                                 SizedBox(
@@ -203,6 +233,7 @@ class _ChatListPageState extends State<ChatListPage> with TickerProviderStateMix
                         fontSize: 16
                       ),
                       tabs: const<Widget>[
+
                         Padding(
                           padding: EdgeInsets.only(right: 15),
                           child: Tab(text:"즐겨찾기"),
@@ -331,60 +362,90 @@ class _ChatListPageState extends State<ChatListPage> with TickerProviderStateMix
                                                       ],
                                                     ),
                                                     SizedBox(height: 20,),
-                                                    TextField(
-                                                      decoration: InputDecoration(
-                                                          labelText: "섹션 이름을 입력해주세요",
-                                                          border: OutlineInputBorder(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(
-                                                                  10)),
-                                                          enabledBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  width: 2
-                                                              ),
-                                                              borderRadius: BorderRadius
-                                                                  .circular(15)
+                                                    Stack(
+                                                      children: [
+                                                        TextField(
+                                                          textAlignVertical: TextAlignVertical.bottom,
+                                                          cursorHeight: 20,
+                                                          style: TextStyle(
+                                                            fontFamily: "LexendDeca",
+                                                            height: 3
                                                           ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Style
-                                                                      .theme
-                                                                      .colorScheme
-                                                                      .primary,
-                                                                  width: 2
+                                                          decoration: InputDecoration(
+                                                              // labelText: "섹션 이름을 입력해주세요",
+                                                            contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(
+                                                                      10)),
+                                                              enabledBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width: 2
+                                                                  ),
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(15)
                                                               ),
-                                                              borderRadius: BorderRadius
-                                                                  .circular(15)
-                                                          )
-                                                      ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: Style
+                                                                          .theme
+                                                                          .colorScheme
+                                                                          .primary,
+                                                                      width: 2
+                                                                  ),
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(15)
+                                                              )
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(left: 15, top: 10),
+                                                          child: Text("섹션 이름을 입력해주세요.", style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "LexendDeca"),),
+                                                        )
+                                                      ],
                                                     ),
                                                     SizedBox(height: 20,),
-                                                    TextField(
-                                                      decoration: InputDecoration(
-                                                        labelText: "채팅방 이름을 입력해주세요",
-                                                        focusedBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius
-                                                                .circular(15),
-                                                            borderSide: BorderSide(
-                                                                color: Style
-                                                                    .theme
-                                                                    .colorScheme
-                                                                    .primary,
-                                                                width: 2
-                                                            )
-                                                        ),
-                                                        enabledBorder: OutlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                                color: Colors
-                                                                    .grey,
-                                                                width: 2
+                                                    Stack(
+                                                      children: [
+                                                        TextField(
+                                                          cursorHeight: 20,
+                                                          textAlignVertical: TextAlignVertical.bottom,
+                                                          style: TextStyle(
+                                                            height: 3,
+                                                            fontFamily: "LexendDeca",
+                                                          ),
+                                                          decoration: InputDecoration(
+                                                            contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                                            // labelText: "채팅방 이름을 입력해주세요",
+                                                            focusedBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius
+                                                                    .circular(15),
+                                                                borderSide: BorderSide(
+                                                                    color: Style
+                                                                        .theme
+                                                                        .colorScheme
+                                                                        .primary,
+                                                                    width: 2
+                                                                )
                                                             ),
-                                                            borderRadius: BorderRadius
-                                                                .circular(15)
+                                                            enabledBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    width: 2
+                                                                ),
+                                                                borderRadius: BorderRadius
+                                                                    .circular(15)
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(left: 15, top: 10),
+                                                          child: Text("채팅방 이름을 입력해주세요", style: TextStyle(fontFamily: "LexendDeca", color: Colors.grey, fontSize: 14, fontWeight: FontWeight.bold),),
+                                                        )
+                                                      ],
                                                     ),
                                                     SizedBox(height: 20,),
                                                     SizedBox(
@@ -666,60 +727,91 @@ class _ChatListPageState extends State<ChatListPage> with TickerProviderStateMix
                                                       ],
                                                     ),
                                                     SizedBox(height: 20,),
-                                                    TextField(
-                                                      decoration: InputDecoration(
-                                                          labelText: "섹션 이름을 입력해주세요",
-                                                          border: OutlineInputBorder(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(
-                                                                  10)),
-                                                          enabledBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  width: 2
-                                                              ),
-                                                              borderRadius: BorderRadius
-                                                                  .circular(15)
+                                                    Stack(
+                                                      children: [
+                                                        TextField(
+                                                          textAlignVertical: TextAlignVertical.bottom,
+                                                          cursorHeight: 20,
+                                                          style: TextStyle(
+                                                            height: 3,
+                                                            fontFamily: "LexendDeca"
                                                           ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Style
-                                                                      .theme
-                                                                      .colorScheme
-                                                                      .primary,
-                                                                  width: 2
+                                                          decoration: InputDecoration(
+                                                            
+                                                              // labelText: "섹션 이름을 입력해주세요",
+                                                            contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(
+                                                                      10)),
+                                                              enabledBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width: 2
+                                                                  ),
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(15)
                                                               ),
-                                                              borderRadius: BorderRadius
-                                                                  .circular(15)
-                                                          )
-                                                      ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(
+                                                                      color: Style
+                                                                          .theme
+                                                                          .colorScheme
+                                                                          .primary,
+                                                                      width: 2
+                                                                  ),
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(15)
+                                                              )
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(top: 10, left: 15),
+                                                          child: Text("섹션 이름을 입력해주세요.", style: TextStyle(fontFamily: "LexendDeca", fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),),
+                                                        )
+                                                      ],
                                                     ),
                                                     SizedBox(height: 20,),
-                                                    TextField(
-                                                      decoration: InputDecoration(
-                                                        labelText: "채팅방 이름을 입력해주세요",
-                                                        focusedBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius
-                                                                .circular(15),
-                                                            borderSide: BorderSide(
-                                                                color: Style
-                                                                    .theme
-                                                                    .colorScheme
-                                                                    .primary,
-                                                                width: 2
-                                                            )
-                                                        ),
-                                                        enabledBorder: OutlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                                color: Colors
-                                                                    .grey,
-                                                                width: 2
+                                                    Stack(
+                                                      children: [
+                                                        TextField(
+                                                          cursorHeight: 20,
+                                                          textAlignVertical: TextAlignVertical.bottom,
+                                                          style: TextStyle(
+                                                            fontFamily: "LexendDeca",
+                                                            height: 3
+                                                          ),
+                                                          decoration: InputDecoration(
+                                                            // labelText: "채팅방 이름을 입력해주세요",
+                                                            contentPadding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+                                                            focusedBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius
+                                                                    .circular(15),
+                                                                borderSide: BorderSide(
+                                                                    color: Style
+                                                                        .theme
+                                                                        .colorScheme
+                                                                        .primary,
+                                                                    width: 2
+                                                                )
                                                             ),
-                                                            borderRadius: BorderRadius
-                                                                .circular(15)
+                                                            enabledBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    width: 2
+                                                                ),
+                                                                borderRadius: BorderRadius
+                                                                    .circular(15)
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(top: 10, left: 15),
+                                                          child: Text("채팅방 이름을 입력해주세요.", style: TextStyle(fontFamily: "LexendDeca", color: Colors.grey, fontSize: 14, fontWeight: FontWeight.bold),),
+                                                        )
+                                                      ],
                                                     ),
                                                     SizedBox(height: 20,),
                                                     SizedBox(
