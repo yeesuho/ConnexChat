@@ -1,4 +1,5 @@
 import 'package:connex_chat/controller/app.dart';
+import 'package:connex_chat/controller/data.dart';
 import 'package:connex_chat/data/model/conversation.dart';
 import 'package:connex_chat/ui/style.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +7,14 @@ import 'package:flutter/material.dart';
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
-
-
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List<Conversation> conversation = App.conversation.toList();
+  // List<Conversation> conversation = App.conversation.toList();
+
+  List<Conversation> conversation = DataController.conversation;
   final TextEditingController _textController = TextEditingController();
 
   bool _isComposing = false;
@@ -72,16 +73,16 @@ class _ChatPageState extends State<ChatPage> {
                           padding: EdgeInsets.only(bottom: 80),
                           children: [
                             for (var i = 0; i < conversation.length; i ++)
-                              if (conversation[i].check == "타인")
+                              if (!conversation[i].isMyMessage)
                                 Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
-                                        ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.asset("assets/img/${conversation[i].profile}.jpg", fit: BoxFit.cover, width: 35, height: 35,)),
+                                        ClipRRect(borderRadius: BorderRadius.circular(100), child: Image.network("${conversation[i].senderProfile}", fit: BoxFit.cover, width: 35, height: 35,)),
                                         SizedBox(width: 10,),
-                                        Text(conversation[i].name!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "LexendDeca"),),
+                                        Text(conversation[i].senderName!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "LexendDeca"),),
                                       ],
                                     ),
                                     SizedBox(height: 10,),
@@ -91,9 +92,9 @@ class _ChatPageState extends State<ChatPage> {
                                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(15), bottomLeft: Radius.circular(15), topRight: Radius.circular(15)),
                                         color: Color(0xfff7f4ff)
                                       ),
-                                      child: Text(conversation[i].talk, style: TextStyle(fontSize: 14, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.w500),),
+                                      child: Text(conversation[i].content, style: TextStyle(fontSize: 14, fontFamily: "LexendDeca-Bold", fontWeight: FontWeight.w500),),
                                     ),
-                                    Text(conversation[i].time, textAlign: TextAlign.left, style: TextStyle(fontSize: 12, fontFamily: "LexendDeca"),),
+                                    Text(conversation[i].timestamp, textAlign: TextAlign.left, style: TextStyle(fontSize: 12, fontFamily: "LexendDeca"),),
                                     SizedBox(height: 20,),
                                   ],
                                 )
@@ -110,7 +111,7 @@ class _ChatPageState extends State<ChatPage> {
                                         color: Style.theme.colorScheme.primary
                                       ),
                                         child: Text(
-                                          conversation[i].talk,
+                                          conversation[i].content,
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             color: Colors.white,
@@ -120,7 +121,7 @@ class _ChatPageState extends State<ChatPage> {
                                           ),
                                         )
                                     ),
-                                    Text(conversation[i].time, textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontFamily: "LexendDeca"),),
+                                    Text(conversation[i].timestamp, textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontFamily: "LexendDeca"),),
                                     SizedBox(height: 20,)
                                   ],
                                 ),

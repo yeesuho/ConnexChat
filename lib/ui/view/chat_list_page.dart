@@ -221,7 +221,7 @@ class _ChatListPageState extends State<ChatListPage> with TickerProviderStateMix
                       child: TabBarView(
                         controller: _tabController,
                           children: [
-                        _buildChatList(),
+                        _favoriteChatList(),
                         _buildChatList(),
                         _buildChatList(),
 
@@ -234,6 +234,340 @@ class _ChatListPageState extends State<ChatListPage> with TickerProviderStateMix
           )
         ],
       ),
+    );
+  }
+
+  Widget _favoriteChatList() {
+    return ListView.builder(
+        padding: EdgeInsets.only(bottom: 10),
+        itemCount: unreadChat.length,
+        itemBuilder: (context, index) {
+          final chatData = unreadChat[index];
+          final roomData = chatroomList[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ChatPage(),));
+              },
+              onLongPress: () {
+                showDialog(context: context,
+                  barrierDismissible: true,
+                  builder: (context) {
+                    return Dialog(shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(chatData.roomName, style: TextStyle(
+                                    fontFamily: "LexendDeca-Bold",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),),
+                                IconButton(onPressed: () {
+                                  Navigator.pop(context);
+                                }, icon: Icon(Icons.close))
+                              ],
+                            ),
+                            ListTile(
+                              title: Text("채팅방 정보 수정", style: TextStyle(
+                                  fontFamily: "LexendDeca",
+                                  fontWeight: FontWeight.w500),),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Set<int> selectedEmployee = {};
+
+                                for (var i in roomData.participants) {
+                                  selectedEmployee.add(i);
+                                }
+
+                                showDialog(context: context,
+                                  barrierDismissible: true,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                      builder: (context, setState) =>
+                                          GestureDetector(
+                                            onTap: () =>
+                                                FocusScope
+                                                    .of(context)
+                                                    .unfocus(),
+                                            child: Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius
+                                                    .circular(20),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                    20.0),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize
+                                                      .min,
+                                                  crossAxisAlignment: CrossAxisAlignment
+                                                      .stretch,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment
+                                                          .spaceBetween,
+                                                      children: [
+                                                        Text("채팅방 수정하기",
+                                                          style: TextStyle(
+                                                              fontFamily: "LexendDeca-Bold",
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight
+                                                                  .bold),),
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            }, icon: Icon(
+                                                            Icons.close))
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 20,),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+                                                          labelText: "섹션 이름을 입력해주세요",
+                                                          border: OutlineInputBorder(
+                                                              borderRadius: BorderRadius
+                                                                  .circular(
+                                                                  10)),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  width: 2
+                                                              ),
+                                                              borderRadius: BorderRadius
+                                                                  .circular(15)
+                                                          ),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Style
+                                                                      .theme
+                                                                      .colorScheme
+                                                                      .primary,
+                                                                  width: 2
+                                                              ),
+                                                              borderRadius: BorderRadius
+                                                                  .circular(15)
+                                                          )
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 20,),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+                                                        labelText: "채팅방 이름을 입력해주세요",
+                                                        focusedBorder: OutlineInputBorder(
+                                                            borderRadius: BorderRadius
+                                                                .circular(15),
+                                                            borderSide: BorderSide(
+                                                                color: Style
+                                                                    .theme
+                                                                    .colorScheme
+                                                                    .primary,
+                                                                width: 2
+                                                            )
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color: Colors
+                                                                    .grey,
+                                                                width: 2
+                                                            ),
+                                                            borderRadius: BorderRadius
+                                                                .circular(15)
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 20,),
+                                                    SizedBox(
+                                                      height: 60,
+                                                      child: ListView(
+                                                        scrollDirection: Axis
+                                                            .horizontal,
+
+                                                        children: [
+                                                          for(var i = 0; i <
+                                                              employee
+                                                                  .length; i++)
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                  right: 12),
+                                                              child: GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    if (selectedEmployee
+                                                                        .contains(
+                                                                        i)) {
+                                                                      selectedEmployee
+                                                                          .remove(
+                                                                          i);
+                                                                    } else {
+                                                                      selectedEmployee
+                                                                          .add(
+                                                                          i);
+                                                                    }
+                                                                  });
+                                                                },
+                                                                child: Opacity(
+                                                                  opacity: selectedEmployee
+                                                                      .contains(
+                                                                      i)
+                                                                      ? 1.0
+                                                                      : 0.3,
+                                                                  child: Row(
+                                                                    children: [
+                                                                      ClipRRect(
+                                                                          borderRadius: BorderRadius
+                                                                              .circular(
+                                                                              100),
+                                                                          child: Image
+                                                                              .network(
+                                                                            "${employee[i]
+                                                                                .profileImage}",
+                                                                            fit: BoxFit
+                                                                                .cover,
+                                                                            width: 40,
+                                                                            height: 40,)),
+                                                                      SizedBox(
+                                                                        width: 10,),
+                                                                      Text(
+                                                                        employee[i]
+                                                                            .name,
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight
+                                                                                .bold,
+                                                                            fontFamily: "LexendDeca",
+                                                                            fontSize: 16),),
+                                                                      SizedBox(
+                                                                        width: 12,),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 20,),
+                                                    OutlinedButton(
+                                                        style: OutlinedButton
+                                                            .styleFrom(
+                                                          minimumSize: Size(
+                                                              100, 60),
+                                                          backgroundColor: Style
+                                                              .theme.colorScheme
+                                                              .primary,
+                                                          foregroundColor: Colors
+                                                              .white,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius
+                                                                  .circular(10)
+                                                          ),
+
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          print("정보 수정");
+                                                        },
+                                                        child: Text("수정하기",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "LexendDeca",
+                                                              fontWeight: FontWeight
+                                                                  .bold),))
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                    );
+                                  },);
+                              },
+                            ),
+                            ListTile(
+                              title: Text("나가기", style: TextStyle(
+                                  fontFamily: "LexendDeca",
+                                  fontWeight: FontWeight.w500)),
+                              onTap: () {
+                                Navigator.pop(context);
+                                print("나가기 클릭");
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },);
+              },
+              child: Container(
+                height: 80,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Style.theme.colorScheme.primary.withValues(
+                              alpha: 0.3),
+                          blurRadius: 7,
+                          spreadRadius: 2,
+                          offset: Offset(0, 3)
+                      )
+                    ]
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(18, 10, 10, 10),
+                      child: SizedBox(
+                        width: 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(roomData.roomName, style: TextStyle(
+                                fontFamily: "LexendDeca-Bold",
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),),
+                            Text(roomData.lastMessage, style: TextStyle(
+                                fontSize: 16, fontFamily: "LexendDeca"),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,)
+                          ],
+                        ),
+                      ),
+                    ),
+                    Text(roomData.lastMessageTime, style: TextStyle(
+                        fontSize: 16, fontFamily: "LexendDeca")),
+                    SizedBox(width: 5,),
+                    IconButton(onPressed: () =>
+                        setState(() {
+                          roomData.isBookmark =
+                          roomData.isBookmark ? false : true;
+                        }),
+                        icon: SvgPicture.asset(roomData.isBookmark
+                            ? "assets/icons/bookmark-star-fill.svg"
+                            : "assets/icons/bookmark-star-outline.svg",
+                          color: Style.theme.colorScheme.primary,
+                          width: 30,
+                          height: 30,)),
+                    SizedBox(width: 5,)
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
     );
   }
 

@@ -43,15 +43,19 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   bool showFullSlider = false;
 
   Future<void> Success() async{
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setBool('splash', false);
+    bounceController.stop();
+    ac.stop();
+    logoController.stop();
 
     Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
         transitionDuration: Duration(milliseconds: 1500),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) => Transform.translate(offset: Offset(0, 500 - 500 * animation.value), child: Opacity(opacity: animation.value, child: child,),)
+        transitionsBuilder: (context, animation, secondaryAnimation, child) => Opacity(opacity: animation.value, child: child,)
     ), (route) => route.isFirst);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setBool('splash', false);
   }
 
   @override
@@ -275,6 +279,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                                   direction: DismissDirection.up,
                                   onDismissed: (direction) async => await Success(),
                                   onUpdate: (details) => progress.value = details.progress,
+                                  movementDuration: Duration(milliseconds: 120),
+                                  resizeDuration: null,
                                   child: CircleAvatar(
                                     radius: 40,
                                     backgroundColor: Colors.white,

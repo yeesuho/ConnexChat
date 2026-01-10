@@ -1,3 +1,4 @@
+import 'package:connex_chat/controller/chat.dart';
 import 'package:connex_chat/data/model/chatrooms.dart';
 import 'package:connex_chat/data/model/conversation.dart';
 import 'package:connex_chat/data/model/employee.dart';
@@ -15,4 +16,7 @@ class DataController {
   static List<ChatroomList> chatroomList = [];
   static Me? me;
   static int totalCount = 0;
+
+
 }
+

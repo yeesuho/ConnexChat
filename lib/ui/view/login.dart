@@ -53,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const Spacer(),
+                    SizedBox(height: 48,),
                     Container(
                       padding: EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(borderRadius: const BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)), color: Colors.white),
@@ -84,6 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                                         keyboardType: TextInputType.emailAddress,
                                         validator: (value) {
                                           if(value == null) return '알 수 없는 에러입니다.';
+                                          if(!value.contains("@")) return '이메일을 입력해주세요.';
+                                          if(value.contains(" ")) return '공백을 제외해주세요.';
                                           if(value.isEmpty) return '필수 입력값 입니다.';
                                           return null;
                                         },
@@ -120,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                                       TextFormField(
                                         validator: (value) {
                                           if(value == null) return '알 수 없는 에러입니다.';
+                                          if(value.length < 4) return '비밀번호는 4자 이상 입력해주세요.';
                                           if(value.isEmpty) return '필수 입력값 입니다.';
                                           return null;
                                         },

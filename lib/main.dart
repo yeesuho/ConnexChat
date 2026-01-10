@@ -27,7 +27,7 @@ Future<void> main() async{
 
   App.employee = jsonDecode(await rootBundle.loadString("assets/data/사원_목록_data.json")).map<Employees>((e) => Employees.fromJson(e)).toList();
   // App.unreadChat = jsonDecode(await rootBundle.loadString("assets/data/읽지_않은_대화_data.json")).map<UnreadChat>((e) => UnreadChat.fromJson(e)).toList();
-  App.conversation = jsonDecode(await rootBundle.loadString("assets/data/채팅방_대화_내용_data.json")).map<Conversation>((e) => Conversation.fromJson(e)).toList();
+  // App.conversation = jsonDecode(await rootBundle.loadString("assets/data/채팅방_대화_내용_data.json")).map<Conversation>((e) => Conversation.fromJson(e)).toList();
 
   prefs = await SharedPreferences.getInstance();
 
@@ -57,7 +57,7 @@ Future<void> main() async{
       MaterialApp(
         debugShowCheckedModeBanner: false,
         home: firstPage,
-
+        // home: SplashPage(),
         // home: MyApp(),
         // home: LoginPage(),
         theme: Style.theme,
